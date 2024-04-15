@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tebak Angka</title>
+    <script>
+
+        let scorePlayer1 = 0;
+        let scorePlayer2 = 0;
+        let round = 1;
+        while (round <= 5) {
+            let targetNumber = Math.floor(Math.random() * 3) + 1;
+
+            let player1 = prompt("Player 1, tebak angka antara 1 hingga 3:");
+            if (player1 < 1 || player1 > 3 || isNaN(player1)) {
+                alert("Angka tidak valid! Harus antara 1 hingga 3.");
+                continue;
+            }
+
+            let player2 = prompt("Player 2, tebak angka antara 1 hingga 3:");
+            if (player2 < 1 || player2 > 3 || isNaN(player2)) {
+                alert("Angka tidak valid! Harus antara 1 hingga 3.");
+                continue;
+            }
+            if (player1 === player2) {
+                alert("Angka tidak boleh sama! Coba lagi.");
+                continue; // Lanjut ke putaran berikutnya
+            }
+
+            let player1Correctly = player1 == targetNumber;
+            let player2Correctly = player2 == targetNumber;
+            if (player1Correctly && player2Correctly) {
+                alert("Kedua pemain berhasil menebak! Skor tidak bertambah.");
+            } else if (player1Correctly) {
+                scorePlayer1++;
+            } else if (player2Correctly) {
+                scorePlayer2++;
+            } else {
+                alert("Tidak ada yang berhasil menebak! Skor tidak bertambah.");
+            }
+
+            let roundResult = "Putaran " + round + ":\n" +
+                "Angka yang harus ditebak: " + targetNumber + "\n" +
+                "Player 1 menebak: " + player1 + "\n" +
+                "Player 2 menebak: " + player2 + "\n" +
+                "Skor sementara:\n" +
+                "Player 1: " + scorePlayer1 + "\n" +
+                "Player 2: " + scorePlayer2;
+            alert(roundResult);
+
+            round++;
+        }
+        let finalResult = "Skor Akhir:\n" +
+            "Player 1: " + scorePlayer1 + "\n" +
+            "Player 2: " + scorePlayer2;
+        alert(finalResult);
+        alert("Permainan selesai!");
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let nama = "Dany";
+        let umur = 22;
+
+        console.log("Nama:", nama);
+        console.log("Umur:", umur);
+
+        umur = 24;
+        console.log("Umur setelah diubah:", umur);
+
+        let tahunLahir = 2024 - umur;
+        console.log("Tahun lahir:", tahunLahir);
+
+        const karyawan = [
+            {
+                name: "Dany",
+                position: "CEO",
+                subordinates: [
+                    {
+                        name: "Rana",
+                        position: "Supervisor"
+                    },
+                    {
+                        name: "Yas",
+                        position: "Supervisor"
+                    }
+                ]
+            },
+            {
+                name: "Rana",
+                position: "Supervisor",
+                subordinates: [
+                    {
+                        name: "Dana",
+                        position: "Staff"
+                    },
+                    {
+                        name: "bambang",
+                        position: "Staff"
+                    }
+                ]
+            },
+            {
+                name: "Yas",
+                position: "Supervisor",
+                subordinates: [
+                    {
+                        name: "Setiawan",
+                        position: "Staff"
+                    },
+                    {
+                        name: "Dina",
+                        position: "Staff"
+                    }
+                ]
+            }
+        ];
+
+        // Menggunakan map untuk mendapatkan nama semua karyawan
+        const karyawanNames = karyawan.map(anggota => anggota.subordinates);
+        console.log(karyawanNames);
+        const supervisors = karyawan.filter(anggota => anggota.position === "Supervisor");
+        console.log(supervisors);
+    </script>
+</body>
+
+</html>

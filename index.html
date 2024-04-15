@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Js</title>
+</head>
+
+<body>
+    <script>
+        let nilai = prompt("Input nilai: ");
+        if (!isNaN(nilai)) {
+            nilai = parseFloat(nilai);
+            if (nilai >= 80 && nilai <= 100) {
+                alert("Nilai anda A");
+            } else if (nilai >= 60 && nilai < 80) {
+                alert("Nilai anda B");
+            } else if (nilai >= 40 && nilai < 60) {
+                alert("Nilai anda C");
+            } else if (nilai >= 20 && nilai < 40) {
+                alert("Nilai anda D");
+            } else {
+                alert("Nilai anda E");
+            }
+        } else {
+            alert("Hanya masukkan angka!");
+        }
+    </script>
+</body>
+
+</html>

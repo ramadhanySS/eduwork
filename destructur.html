@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Destructuring array
+        const students = ["Rama", "Dhany", 18, "Fullstack"];
+        const students1 = students[0];
+        const students2 = students[1];
+        const students3 = students[2];
+        console.log(students1, students2, students3);
+
+        const [firstName, lastName, age, subject] = students;
+        console.log(firstName, lastName, age, subject);
+
+        // Destructuring object
+        const karyawan = {
+            id: 101,
+            name: "Dhany",
+            jabatan: "Direktur",
+            bawahan: {
+                name: "Rama",
+                id: 110,
+                jabatan: "Manager"
+            }
+        }
+        ;
+        const idKaryawan = karyawan.id;
+        const nameKaryawan = karyawan.name;
+        const namaBawahan = karyawan.bawahan.name;
+        console.log(idKaryawan, nameKaryawan, namaBawahan);
+
+        const { id, name, jabatan, bawahan } = karyawan;
+        console.log(id, name, jabatan, bawahan);
+
+        function penjumlahan([huruf1, huruf2]) {
+            const penjumlahan = huruf1 + huruf2;
+            const pesan = `hasil penjumlahan kedua bilangan adalah ${penjumlahan}`;
+            console.log(pesan);
+        }
+
+        function printKaryawan({ id, name, jabatan, bawahan }) {
+            const pesan = `karyawan ${id} name ${name} jabatan ${jabatan}`;
+            console.log(pesan)
+        }
+
+        printKaryawan(karyawan);
+        penjumlahan(["bb", "aa"])
+    </script>
+</body>
+
+</html>
