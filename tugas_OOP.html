@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="app"></div>
+    </div>
+    <script>
+        class Table {
+            constructor(init) {
+                this.init = init;
+                this.currentPage = 1;
+                this.rowsPerPage = 3;
+            }
+            createHeader(data) {
+                let open = "<thead><tr>";
+                let close = "</tr></thead>";
+                data.forEach((d) => {
+                    open += `<th>${d}</th>`;
+                });
+                return open + close;
+            }
+            createBody(data) {
+                let open = "<tbody>";
+                let close = "</tbody>";
+
+                const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+                const endIndex = startIndex + this.rowsPerPage;
+
+                const currentPageData = data.slice(startIndex, endIndex);
+
+                currentPageData.forEach((d) => {
+                    open += `
+                    <tr>
+                        <td>${d[0]}</td>
+                        <td>${d[1]}</td>
+                        <td>${d[2]}</td>
+                    </tr>
+                    `;
+                });
+                return open + close;
+            }
+
+            render(element) {
+                let table =
+                    "<table class='table table-hover'>" +
+                    this.createHeader(this.init.columns) +
+                    this.createBody(this.init.data) +
+                    "</table>";
+
+                const totalPages = Math.ceil(this.init.data.length / this.rowsPerPage);
+
+                let pagination =
+                    `<nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item ${this.currentPage === 1 ? 'disabled' : ''}">
+                                <a class="page-link" href="#" onclick="table.prevPage()">Previous</a>
+                            </li>`;
+                for (let i = 1; i <= totalPages; i++) {
+                    pagination += `
+                            <li class="page-item ${this.currentPage === i ? 'active' : ''}">
+                                <a class="page-link" href="#" onclick="table.goToPage(${i})">${i}</a>
+                            </li>`;
+                }
+                pagination +=
+                    `<li class="page-item ${this.currentPage === totalPages ? 'disabled' : ''}">
+                        <a class="page-link" href="#" onclick="table.nextPage()">Next</a>
+                    </li>
+                </ul>
+            </nav>`;
+
+                element.innerHTML = table + pagination;
+            }
+
+            goToPage(page) {
+                this.currentPage = page;
+                this.render(document.getElementById("app"));
+            }
+
+            nextPage() {
+                if (this.currentPage < Math.ceil(this.init.data.length / this.rowsPerPage)) {
+                    this.currentPage++;
+                    this.render(document.getElementById("app"));
+                }
+            }
+
+            prevPage() {
+                if (this.currentPage > 1) {
+                    this.currentPage--;
+                    this.render(document.getElementById("app"));
+                }
+            }
+        }
+        const table = new Table({
+            columns: ["name", "id", "email"],
+            data: [
+                ["Dani", "111222", "rmdhny@gmail.com"],
+                ["Rama", "222111", "dhny@gmail.com"],
+                ["Setiawan", "322111", "shny@gmail.com"],
+                ["Amannn", "422111", "ahny@gmail.com"],
+                ["Tama", "522111", "thny@gmail.com"],
+                ["zama", "622111", "zhny@gmail.com"],
+            ]
+        });
+        const app = document.getElementById("app");
+        table.render(app);
+    </script>
+
+</body>
+
+</html>
