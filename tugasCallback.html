@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #f2f2f2;
+            border: 1px solid #dddddd;
+            cursor: pointer;
+        }
+
+        .pagination button.active {
+            background-color: #505050;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+<body>
+
+    <table id="userData">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="pagination" id="pagination"></div>
+
+    <script>
+        const perPage = 4; 
+        let currentPage = 1; 
+
+        function fetchData(callback) {
+            fetch('https://jsonplaceholder.typicode.com/users')
+                .then(response => response.json())
+                .then(data => callback(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function generateTable(data) {
+            const tableBody = document.querySelector('#userData tbody');
+            tableBody.innerHTML = ''; 
+            const start = (currentPage - 1) * perPage;
+            const end = start + perPage;
+            const paginatedData = data.slice(start, end);
+            paginatedData.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.phone}</td>
+                <td>${user.website}</td>
+            `;
+                tableBody.appendChild(row);
+            });
+            renderPagination(data.length);
+        }
+
+        function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / perPage);
+            const paginationElement = document.querySelector('#pagination');
+            paginationElement.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                if (i === currentPage) {
+                    btn.classList.add('active');
+                }
+                btn.addEventListener('click', () => {
+                    currentPage = i;
+                    fetchData(generateTable);
+                });
+                paginationElement.appendChild(btn);
+            }
+        }
+
+        fetchData(generateTable);
+    </script>
+
+</body>
+
+</html>
