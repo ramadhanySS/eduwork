@@ -28,7 +28,6 @@
             const newsContainer = document.getElementById('news-container');
             const searchInput = document.getElementById('searchInput');
 
-            // Fetch data from News API
             async function fetchData(url) {
                 try {
                     const response = await fetch(url);
@@ -39,7 +38,6 @@
                 }
             }
 
-            // Render news articles
             function renderNews(articles) {
                 newsContainer.innerHTML = '';
                 if (articles && articles.length > 0) {
@@ -64,7 +62,6 @@
                 }
             }
 
-            // Handle live search
             searchInput.addEventListener('input', async function () {
                 const searchTerm = this.value.trim();
                 if (searchTerm.length > 0) {
@@ -77,7 +74,6 @@
                 }
             });
 
-            // Initial data load
             async function initialize() {
                 const articles = await fetchData(apiUrl);
                 renderNews(articles);
